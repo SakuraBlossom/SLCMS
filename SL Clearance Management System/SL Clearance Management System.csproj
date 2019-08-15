@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FEB497A8-E963-4646-96A5-77F9588C48FC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SLCMS</RootNamespace>
+    <AssemblyName>SLCMS</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SLCMS.SLVisitorApp</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="SLVisitorApp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="BusinessLogic\FakeDataTest.cs" />
+    <Compile Include="BusinessLogic\Global.cs" />
+    <Compile Include="BusinessLogic\SLVMSDataBaseConnection.cs" />
+    <Compile Include="View\LookUpClearance.xaml.cs">
+      <DependentUpon>LookUpClearance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BluePassBulkClearance.cs" />
+    <Compile Include="Model\VisitorPassEntry.cs" />
+    <Compile Include="SLClearanceApp.xaml.cs">
+      <DependentUpon>SLClearanceApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SLClearanceManagementMainWindow.xaml.cs">
+      <DependentUpon>SLClearanceManagementMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Converters\BoolToIndexConverter.cs" />
+    <Compile Include="Themes\Converters\BoolToYesNoConverter.cs" />
+    <Compile Include="Themes\Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Model\Clearance.cs" />
+    <Compile Include="Model\Enums\ClearanceLevelEnum.cs" />
+    <Compile Include="Model\Enums\PassConditionEnum.cs" />
+    <Compile Include="Model\VisitorRecord.cs" />
+    <Compile Include="Model\PersonnelDetails.cs" />
+    <Compile Include="Model\VisitorPass.cs" />
+    <Compile Include="Themes\Converters\NullORFalseToBooleanFalseConvertor.cs" />
+    <Compile Include="Themes\Converters\NullToBooleanFalseConvertor.cs" />
+    <Compile Include="Themes\Converters\TabIndexConverter.cs" />
+    <Compile Include="ViewModel\AllVisitorHistoryViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\PassManagementViewModel.cs" />
+    <Compile Include="ViewModel\BookInPersonnelViewModel.cs" />
+    <Compile Include="ViewModel\DashBoardViewModel.cs" />
+    <Compile Include="ViewModel\Interactive\EventArgs.cs" />
+    <Compile Include="ViewModel\Interactive\EventRaiser.cs" />
+    <Compile Include="ViewModel\Interactive\RelayCommand.cs" />
+    <Compile Include="ViewModel\UploadBulkClearanceViewModel.cs" />
+    <Compile Include="ViewModel\VisitorHistoryLookupViewModel.cs" />
+    <Compile Include="View\AllVisitorHistory.xaml.cs">
+      <DependentUpon>AllVisitorHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ElasticSlackLoadingIndicator.xaml.cs">
+      <DependentUpon>ElasticSlackLoadingIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PassManagement.xaml.cs">
+      <DependentUpon>PassManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\BookInPersonnel.xaml.cs">
+      <DependentUpon>BookInPersonnel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DashBoard.xaml.cs">
+      <DependentUpon>DashBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Themes\Converters\DataGridSearchValueConverter.cs" />
+    <Compile Include="Themes\Interactive\DataGridTextSearch.cs" />
+    <Compile Include="Themes\Converters\LeftMarginMultiplierConverter.cs" />
+    <Compile Include="Themes\Converters\StringEmptyConverter.cs" />
+    <Compile Include="View\SettingsUserControl.xaml.cs">
+      <DependentUpon>SettingsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UIControls\CircularProgressBar.xaml.cs">
+      <DependentUpon>CircularProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UIControls\SelectEscortPersonnelDialogueControl.xaml.cs">
+      <DependentUpon>SelectEscortPersonnelDialogueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UIControls\PersonnelParticularsEntryControl.xaml.cs">
+      <DependentUpon>PersonnelParticularsEntryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UIControls\ReviewPersonnelParticularsControl.xaml.cs">
+      <DependentUpon>ReviewPersonnelParticularsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UIControls\ClearanceDetailsEntryControl.xaml.cs">
+      <DependentUpon>ClearanceDetailsEntryControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UploadBulkClearance.xaml.cs">
+      <DependentUpon>UploadBulkClearance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VisitorHistoryLookup.xaml.cs">
+      <DependentUpon>VisitorHistoryLookup.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\LookUpClearance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SLClearanceApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SLClearanceManagementMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SLVisitorManagementMainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="SLVisitorApp.xaml.cs">
+      <DependentUpon>SLVisitorApp.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SLVisitorManagementMainWindow.xaml.cs">
+      <DependentUpon>SLVisitorManagementMainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AllVisitorHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ElasticSlackLoadingIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PassManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\BookInPersonnel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DashBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UIControls\CircularProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UIControls\SelectEscortPersonnelDialogueControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UIControls\PersonnelParticularsEntryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UIControls\ReviewPersonnelParticularsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UIControls\ClearanceDetailsEntryControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UploadBulkClearance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VisitorHistoryLookup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\607PLAB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\SLVMS_DB_Default.accdb" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="SLCMS.View.VisitorHistoryLookup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:SLCMS.View.Themes"
+             xmlns:ui="clr-namespace:SLCMS.View.UIControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="780" d:DesignWidth="900"
+             Visibility="{Binding ControlVisibility}"
+             KeyboardNavigation.TabNavigation="Cycle">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Generic.xaml"/>
+    </UserControl.Resources>
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Rectangle Fill="Black" Opacity="0.7" MouseDown="Rectangle_MouseDown"/>
+        <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20,50"
+                BorderBrush="#2ecc71" BorderThickness="2,2,3,3">
+            <Grid Background="#444444">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="85"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="270"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Interface -->
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="DISPLAYING: " FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding NameofPersonnel}" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Foreground="#BDDDF4" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
+
+                <!-- Data Grid -->
+                <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4"
+                    x:Name="VisitorRecordsDataGrid" IsReadOnly="True" SelectionUnit="FullRow" AutoGenerateColumns="False" SelectionMode="Single"
+                    LoadingRow="VisitorRecordsDataGrid_LoadingRow"
+                    controls:DataGridTextSearch.SearchValue="{Binding PersonnelNric}"
+                    ItemsSource="{Binding ListofVisitorRecords}" SelectedItem="{Binding CurrentSelectedRecord}"
+                        KeyboardNavigation.TabNavigation="None" IsTabStop="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Pass Issued"   Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=PersonnelPass, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Visitor NRIC"  Width="90"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Veh. Pass"     Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehiclePass, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Veh. Num"      Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehicleNum, Mode=OneWay, FallbackValue='NA'}" />
+                        <DataGridTextColumn Header="Escort NRIC"   Width="90"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Locker Tag"    Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=LockerNum, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Date/Time In"  Width="135" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=StartTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}" SortDirection="Descending"/>
+                        <DataGridTextColumn Header="Date/Time Out" Width="135" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EndTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=InCampStatus, FallbackValue=False}" Value="True">
+                                    <Setter Property="Background" Value="#F9690E"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+
+                <!-- Escort Particulars -->
+                <GroupBox Grid.Row="1" Grid.Column="3" Grid.RowSpan="2" Header="Visitor Particulars" Foreground="White" FontSize="13" BorderBrush="DeepSkyBlue" Margin="5,0" >
+                    <ui:ReviewPersonnelParticularsControl DataContext="{Binding VisitorDetails}" TabIndex="1"/>
+                </GroupBox>
+                <GroupBox Grid.Row="3" Grid.Column="3" Grid.RowSpan="2" Header="Escort Particulars" Foreground="White" FontSize="13" BorderBrush="DeepSkyBlue" Margin="5,0" >
+                    <ui:ReviewPersonnelParticularsControl DataContext="{Binding EscortDetails}" TabIndex="2"/>
+                </GroupBox>
+
+                <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4" Text="NO RECORD FOUND" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Visibility="{Binding NoRecordsFound, Converter={StaticResource Bool2VisibilityConverter}}"/>
+
+                <Button x:Name="CloseDialogButton" Grid.Row="5" Grid.Column="3" Style="{StaticResource OrangeButton}" Height="30" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Content="CLOSE" Command="{Binding CloseControlCommand}"  TabIndex="0"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,197 @@
+﻿<UserControl    x:Class="SLCMS.View.DashBoard"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:controls="clr-namespace:SLCMS.View.Themes"
+                xmlns:uiControls="clr-namespace:SLCMS.View.UIControls"
+                mc:Ignorable="d" 
+                d:DesignHeight="780" d:DesignWidth="900"
+                KeyboardNavigation.TabNavigation="Cycle">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Generic.xaml"/>
+    </UserControl.Resources>
+
+    <Grid Background="#444444">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="15"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" MinHeight="20"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="10*" MinHeight="180" MaxHeight="290"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="10*" MinHeight="180" MaxHeight="290"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search Interface -->
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="Search: " FontSize="14" Margin="5,0,0,10"/>
+        <TextBox x:Name="SearchTextBox" Grid.Row="1" Grid.Column="2" Height="25" VerticalContentAlignment="Center" Margin="5,0,0,10" CharacterCasing="Upper" TextChanged="SearchTextBox_TextChanged" TabIndex="0">
+            <TextBox.ToolTip>
+                <ToolTip>
+                    <TextBlock Foreground="Black" FontSize="13">
+                        Search results will be narrowed down using NRIC or Pass of the Visitor and Escort.<LineBreak/>
+                        Press the 'Home' key to automatically focus on this textbox.
+                    </TextBlock>
+                </ToolTip>
+            </TextBox.ToolTip>
+        </TextBox>
+
+        <!-- Data Grid -->
+        <DataGrid   Grid.Row="2" Grid.Column="1"
+                    Grid.RowSpan="9" Grid.ColumnSpan="4"
+                    ItemsSource="{Binding VisitorRecords}"
+                    x:Name="VisitorInCampDataGrid" IsReadOnly="True" SelectionUnit="FullRow" AutoGenerateColumns="False"
+                    controls:DataGridTextSearch.SearchValue="{Binding ElementName=SearchTextBox, Path=Text, UpdateSourceTrigger=PropertyChanged}"
+                    LoadingRow="VisitorInCampDataGrid_LoadingRow" SelectionChanged="VisitorInCampDataGrid_SelectionChanged" RowHeight="30">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Pass No."        Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=PersonnelPass, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Visitor NRIC"    Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Name of Visitor" Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Visitor.RankAndName, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Escort NRIC"     Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC, Mode=OneWay, FallbackValue='NA'}" />
+                <DataGridTextColumn Header="Name of Escort"  Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Escort.RankAndName, Mode=OneWay, FallbackValue='NA'}" />
+                <DataGridTextColumn Header="Visitor Contact No." Width="120" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Visitor.Contact, Mode=OneWay, FallbackValue='NA'}" />
+                <DataGridTextColumn Header="Veh. Pass"       Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehiclePass, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Veh. Num"        Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehicleNum, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Locker"          Width="60"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=LockerNum, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Book In Time"    MinWidth="140" MaxWidth="140" Binding="{Binding Path=StartTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}" SortDirection="Ascending"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Military Pass -->
+        <Grid Grid.Row="1" Grid.Column="6" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="18"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Grid.Column="0" Grid.RowSpan="6" Grid.ColumnSpan="7" RadiusX="10" RadiusY="10" Fill="#27ae60" IsHitTestVisible="False">
+                <Rectangle.ToolTip>
+                    <ToolTip Grid.Row="0" x:Name="BookOutButtonToolTip" ToolTipService.ShowDuration="2000"/>
+                </Rectangle.ToolTip>
+            </Rectangle>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding TotalNumberofLoanedMilitaryPasses, FallbackValue='100'}" Grid.RowSpan="3" Grid.ColumnSpan="3" FontSize="35" HorizontalAlignment="Left" Margin="12,0,0,5"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding NumberofLoanedMilitaryPassAreaA, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding NumberofLoanedMilitaryPassAreaB, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="3" Grid.Column="4" Text="{Binding NumberofLoanedMilitaryPassAreaC, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="4" Grid.Column="4" Text="{Binding NumberofLoanedMilitaryPassAreaD, FallbackValue='100'}"/>
+
+
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding TotalNumberofMilitaryPasses, FallbackValue='100'}" Grid.RowSpan="2" FontSize="15"/>
+            <TextBlock Grid.Row="1" Grid.Column="6" Text="{Binding TotalNumberofMilitaryPassAreaA, FallbackValue='100'}" Margin="0,0,5,0"/>
+            <TextBlock Grid.Row="2" Grid.Column="6" Text="{Binding TotalNumberofMilitaryPassAreaB, FallbackValue='100'}" Margin="0,0,5,0"/>
+            <TextBlock Grid.Row="3" Grid.Column="6" Text="{Binding TotalNumberofMilitaryPassAreaC, FallbackValue='100'}" Margin="0,0,5,0"/>
+            <TextBlock Grid.Row="4" Grid.Column="6" Text="{Binding TotalNumberofMilitaryPassAreaD, FallbackValue='100'}" Margin="0,0,5,0"/>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Text="LOANED-OUT MILITARY PASS" FontSize="14" FontFamily="Calibri Bold" VerticalAlignment="Bottom"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Area A:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="Area B:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="Area C:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="Area D:" HorizontalAlignment="Right"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Text="of " FontSize="15" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Text=" [Total]" FontSize="15" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Row="1" Grid.Column="5" Text="of"/>
+            <TextBlock Grid.Row="2" Grid.Column="5" Text="of"/>
+            <TextBlock Grid.Row="3" Grid.Column="5" Text="of"/>
+            <TextBlock Grid.Row="4" Grid.Column="5" Text="of"/>
+        </Grid>
+
+        <!-- Visitor Pass -->
+        <Grid Grid.Row="4" Grid.Column="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="14"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="18"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Grid.Column="0" Grid.RowSpan="7" Grid.ColumnSpan="7" RadiusX="10" RadiusY="10" Fill="#e67e22"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding TotalNumberofLoanedCivilianPasses, FallbackValue='100'}" Grid.RowSpan="3" Grid.ColumnSpan="3" FontSize="35" HorizontalAlignment="Left" Margin="12,0,0,5"/>
+            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding NumberofLoanedCivilianPassAreaA, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding NumberofLoanedCivilianPassAreaB, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="3" Grid.Column="4" Text="{Binding NumberofLoanedCivilianPassAreaC, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="4" Grid.Column="4" Text="{Binding NumberofLoanedCivilianPassAreaD, FallbackValue='100'}"/>
+            <TextBlock Grid.Row="5" Grid.Column="4" Text="{Binding TotalNumberofForeignPass, FallbackValue='100'}" Grid.ColumnSpan="3" HorizontalAlignment="Left" />
+
+
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding TotalNumberofCivilianPasses, FallbackValue='100'}" Grid.RowSpan="2" FontSize="15"/>
+            <TextBlock Grid.Row="1" Grid.Column="6" Text="{Binding TotalNumberofCivilianPassAreaA, FallbackValue='100'}" Margin="0,0,5,0"/>
+            <TextBlock Grid.Row="2" Grid.Column="6" Text="{Binding TotalNumberofCivilianPassAreaB, FallbackValue='100'}" Margin="0,0,5,0"/>
+            <TextBlock Grid.Row="3" Grid.Column="6" Text="{Binding TotalNumberofCivilianPassAreaC, FallbackValue='100'}" Margin="0,0,5,0"/>
+            <TextBlock Grid.Row="4" Grid.Column="6" Text="{Binding TotalNumberofCivilianPassAreaD, FallbackValue='100'}" Margin="0,0,5,0"/>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Text="LOANED-OUT CIVILIAN PASS" FontSize="14" FontFamily="Calibri Bold" VerticalAlignment="Bottom"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Area A:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="Area B:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Text="Area C:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="4" Grid.Column="2" Text="Area D:" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="5" Grid.Column="2" Text="Foreign Passes:" HorizontalAlignment="Right"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Text="of " FontSize="15" HorizontalAlignment="Right"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Text="+ [Total]" FontSize="15" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Row="1" Grid.Column="5" Text="of" />
+            <TextBlock Grid.Row="2" Grid.Column="5" Text="of" />
+            <TextBlock Grid.Row="3" Grid.Column="5" Text="of" />
+            <TextBlock Grid.Row="4" Grid.Column="5" Text="of" />
+        </Grid>
+
+        <StackPanel Grid.Row="5" Grid.Column="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock x:Name="NumberofBookoutpersonnel" FontSize="13" Foreground="DeepSkyBlue" Text="{Binding NumberofVisitorRecordsSelected, FallbackValue='0'}"/>
+            <TextBlock FontSize="13" Margin="5,0,0,0"> Record(s) selected</TextBlock>
+        </StackPanel>
+        <Button x:Name="BookOutButtonControl" Grid.Row="6" Grid.Column="6" FontSize="16" FontFamily="Calibri light" Margin="5,3,5,2" Content="BOOK OUT" TabIndex="1"
+                Command="{Binding BookOutVisitorDataCommand}"
+                IsEnabled="{Binding NumberofVisitorRecordsSelected, Converter={StaticResource NullOrFalse2BooleanFalseConvertor}}"
+                ToolTip="Press the 'End' Key to Book-Out all selected visitors"/>
+
+        <GroupBox Grid.Row="8" Grid.Column="6" Header="Particulars of Personnel" Foreground="White" FontSize="13" BorderBrush="DeepSkyBlue" Margin="5,0" >
+            <uiControls:ReviewPersonnelParticularsControl DataContext="{Binding VisitorDetails}" TabIndex="2"/>
+        </GroupBox>
+        <GroupBox Grid.Row="10" Grid.Column="6" Header="Particulars of Escort" Foreground="White" FontSize="13" FontFamily="Calibri light" BorderBrush="DeepSkyBlue">
+            <uiControls:ReviewPersonnelParticularsControl DataContext="{Binding EscortDetails}" TabIndex="3"/>
+        </GroupBox>
+        <Button  Grid.Row="1" Grid.Column="4" Height="30" FontSize="14" Margin="0,0,0,8" Content="Refresh" TabIndex="4" Command="{Binding RefreshVisitorDataCommand}"/>
+    </Grid>
+</UserControl>

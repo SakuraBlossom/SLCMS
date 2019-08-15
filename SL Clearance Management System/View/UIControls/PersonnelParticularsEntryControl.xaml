@@ -1,0 +1,207 @@
+﻿<UserControl x:Class="SLCMS.View.UIControls.PersonnelParticularsEntryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="270" d:DesignWidth="210"
+             x:Name="ThisControl" KeyboardNavigation.TabNavigation="Local">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Generic.xaml"/>
+    </UserControl.Resources>
+    <Grid MinHeight="270" MinWidth="210">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition MaxHeight="15">
+                <RowDefinition.Style>
+                    <Style TargetType="{x:Type RowDefinition}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" Value="False">
+                                <Setter Property="Height" Value="15"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" Value="True">
+                                <Setter Property="Height" Value="0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </RowDefinition.Style>
+            </RowDefinition>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="Auto" MinHeight="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,0,0,0" FontSize="12">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                    <Setter Property="Text" Value="Personnel Particulars found"/>
+                    <Setter Property="Foreground" Value="DeepSkyBlue"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding NRIC}" Value="{x:Null}">
+                            <Setter Property="Text" Value="No personnel selected"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsDirty}" Value="True">
+                            <Setter Property="Text" Value="Personnel entry not saved"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Contact, Converter={StaticResource StringEmptyOrWhiteSpacetoBooleanConverter}, FallbackValue=False}" Value="True">
+                            <Setter Property="Text" Value="Contact Field cannot be empty"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding UnitOrCompany, Converter={StaticResource StringEmptyOrWhiteSpacetoBooleanConverter}, FallbackValue=False}" Value="True">
+                            <Setter Property="Text" Value="Unit Field cannot be empty"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding FullName, Converter={StaticResource StringEmptyOrWhiteSpacetoBooleanConverter}, FallbackValue=False}" Value="True"/>
+                                <Condition Binding="{Binding IsDirty}" Value="True"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Text" Value="Name Field cannot be empty"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding FullName, Converter={StaticResource StringEmptyOrWhiteSpacetoBooleanConverter}, FallbackValue=False}" Value="True"/>
+                                <Condition Binding="{Binding IsDirty}" Value="False"/>
+                            </MultiDataTrigger.Conditions>
+                            <Setter Property="Text" Value="Personnel entry not found"/>
+                            <Setter Property="Foreground" Value="Red"/>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="NRIC:"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="Rank:"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="Name:"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="Unit:"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="Contact:"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="Vehicle:"/>
+        <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top"    Margin="0,3,0,0" FontSize="13" Text="Remarks:"/>
+
+        <TextBox x:Name="VisitorNricTextBox" Grid.Row="0" Grid.Column="1" Margin="2" FontSize="12" Foreground="White" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Path=NRIC, FallbackValue='NA'}" IsReadOnly="True" IsTabStop="False">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding EnableRemoveSelectFeature}" Value="False">
+                            <Setter Property="Grid.ColumnSpan" Value="2"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBox x:Name="NameEntryBox" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="130" CharacterCasing="Upper" TabIndex="3" IsTabStop="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}" IsReadOnly="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Margin="2" Text="{Binding Path=FullName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='NA'}" TextWrapping="Wrap"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="80" CharacterCasing="Upper" TabIndex="4" IsTabStop="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}" IsReadOnly="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Margin="2" Text="{Binding Path=UnitOrCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='NA'}"/>
+        <TextBox x:Name="ContactEntryBox" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="50" CharacterCasing="Upper" TabIndex="5" IsTabStop="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}" IsReadOnly="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Margin="2" Text="{Binding Path=Contact, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='NA'}"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="50" CharacterCasing="Upper" TabIndex="6" IsTabStop="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}" IsReadOnly="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Margin="2" Text="{Binding Path=VehicleNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='NA'}"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" MaxLength="200" CharacterCasing="Upper" TabIndex="7" IsTabStop="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}" IsReadOnly="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Margin="2" Text="{Binding Path=Remarks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='NA'}" TextWrapping="Wrap" VerticalContentAlignment="Top" />
+
+
+        <ComboBox x:Name="RankSelectionComboBox" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="2"
+                          TabIndex="2" IsTabStop="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}"
+                          FontSize="12" Text="{Binding Path=Rank}" SelectedIndex="1"
+                          Foreground="White" BorderThickness="3"
+                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                          ToolTip="May refer to the rank of personnel prior to ORD"
+                          IsEnabled="{Binding Path=IsPersonnelParticularsReadOnly, ElementName=ThisControl, Converter={StaticResource InverseBooleanConverter}}">
+            <ComboBoxItem ToolTip="Mister">MR</ComboBoxItem>
+            <ComboBoxItem ToolTip="Miss">MS</ComboBoxItem>
+            <ComboBoxItem ToolTip="Missus">MRS</ComboBoxItem>
+            <Separator/>
+            <ComboBoxItem ToolTip="Recruit">REC</ComboBoxItem>
+            <ComboBoxItem ToolTip="Private">PTE</ComboBoxItem>
+            <ComboBoxItem ToolTip="Lance-Corporal">LCP</ComboBoxItem>
+            <ComboBoxItem ToolTip="Corporal">CPL</ComboBoxItem>
+            <ComboBoxItem ToolTip="Corporal First-Class">CFC</ComboBoxItem>
+            <Separator/>
+            <ComboBoxItem ToolTip="Specialist Cadet-Trainee">SCT</ComboBoxItem>
+            <ComboBoxItem ToolTip="3rd Sergeant">3SG</ComboBoxItem>
+            <ComboBoxItem ToolTip="2nd Sergeant">2SG</ComboBoxItem>
+            <ComboBoxItem ToolTip="1st Sergeant">1SG</ComboBoxItem>
+            <ComboBoxItem ToolTip="Staff Sergeant">SSG</ComboBoxItem>
+            <ComboBoxItem ToolTip="Master Sergeant">MSG</ComboBoxItem>
+            <ComboBoxItem ToolTip="3rd Warrant Officer">3WO</ComboBoxItem>
+            <ComboBoxItem ToolTip="2nd Warrant Officer">2WO</ComboBoxItem>
+            <ComboBoxItem ToolTip="1st Warrant Officer">1WO</ComboBoxItem>
+            <ComboBoxItem ToolTip="Master Warrant Officer">MWO</ComboBoxItem>
+            <ComboBoxItem ToolTip="Senior Warrant Officer">SWO</ComboBoxItem>
+            <ComboBoxItem ToolTip="Chief Warrant Officer">CWO</ComboBoxItem>
+            <Separator/>
+            <ComboBoxItem ToolTip="Military Expert 1">ME1</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 1 (Apprentice)">ME1(A)</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 1 (Trainee)">ME1(T)</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 2">ME2</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 3">ME3</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 4">ME4</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 4 (Apprentice)">ME4(A)</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 4 (Trainee)">ME4(T)</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 5">ME5</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 6">ME6</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 7">ME7</ComboBoxItem>
+            <ComboBoxItem ToolTip="Military Expert 8">ME8</ComboBoxItem>
+            <Separator/>
+            <ComboBoxItem ToolTip="Officer Cadet-Trainee">OCT</ComboBoxItem>
+            <ComboBoxItem ToolTip="2nd Lieutanant">2LT</ComboBoxItem>
+            <ComboBoxItem ToolTip="Lieutanant">LTA</ComboBoxItem>
+            <ComboBoxItem ToolTip="Captain">CPT</ComboBoxItem>
+            <ComboBoxItem ToolTip="Major">MAJ</ComboBoxItem>
+            <ComboBoxItem ToolTip="Lieutanant Colonel">LTC</ComboBoxItem>
+            <ComboBoxItem ToolTip="Senior Lieutanant Colonel">SLTC</ComboBoxItem>
+            <ComboBoxItem ToolTip="Colonel">COL</ComboBoxItem>
+            <ComboBoxItem ToolTip="Brigader General">BG</ComboBoxItem>
+            <ComboBoxItem ToolTip="Major General">MG</ComboBoxItem>
+            <ComboBoxItem ToolTip="Lieutanant General">LG</ComboBoxItem>
+            <Separator/>
+            <ComboBoxItem ToolTip="Defence Executive 1">DX1</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 2">DX2</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 3">DX3</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 4">DX4</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 5">DX5</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 6">DX6</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 7">DX7</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 8">DX8</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 9">DX9</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 10">DX10</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 11">DX11</ComboBoxItem>
+            <ComboBoxItem ToolTip="Defence Executive 12">DX12</ComboBoxItem>
+            <Separator/>
+            <ComboBoxItem ToolTip="Noob">SCRUB</ComboBoxItem>
+        </ComboBox>
+
+
+        <Button Grid.Row="0" Grid.Column="2" FontSize="14" FontFamily="Calibri light" Margin="5,3" TabIndex="1"
+                Command="{Binding ButtonCommand, ElementName=ThisControl}"
+                Visibility="{Binding EnableRemoveSelectFeature, ElementName=ThisControl, Converter={StaticResource Bool2VisibilityConverter}}">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                    <Setter Property="Content" Value="REMOVE"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Value="False">
+                            <Setter Property="IsEnabled" Value="False"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsPersonnelParticularsReadOnly, ElementName=ThisControl}" Value="True">
+                            <Setter Property="IsEnabled" Value="True"/>
+                            <Setter Property="Content" Value="SELECT"/>
+                            <Setter Property="Background" Value="#2ecc71"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="2" TabIndex="8" Content="LOOKUP VISIT HISTORY" IsTabStop="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}" Click="LookupButton_Click"/>
+    </Grid>
+</UserControl>

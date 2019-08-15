@@ -1,0 +1,213 @@
+﻿<UserControl x:Class="SLCMS.View.UIControls.ClearanceDetailsEntryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="450"
+             KeyboardNavigation.TabNavigation="Local">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Generic.xaml"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.8*"
+                    MinWidth="200"/>
+            <ColumnDefinition Width="*"
+                    MinWidth="130"
+                    MaxWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="0"
+                Grid.Column="0"
+                Header="Visitor Clearance Details"
+                Foreground="White"
+                FontSize="13"
+                BorderBrush="DeepSkyBlue"
+                Margin="5,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="3,3,0,0"
+                        FontSize="13"
+                        Text="Highest Active Clearance:"/>
+                <TextBlock Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,3,0,0"
+                        FontSize="13"
+                        Text="{Binding Path=GetCurrentMaxClearanceLevel.AreaAccessString, FallbackValue='None'}"
+                        Foreground="DeepSkyBlue"/>
+
+                <!-- Data Grid -->
+                <DataGrid x:Name="VisitorClearanceDataGrid"
+                        SelectionUnit="FullRow"
+                        AutoGenerateColumns="False"
+                        IsTabStop="False"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        IsReadOnly="True"
+                        ItemsSource="{Binding Path=ListofClearance, Mode=OneWay}"
+                        LoadingRow="LoadingRow"
+                        KeyboardNavigation.TabNavigation="None">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Area"
+                                Width="80"
+                                MinWidth="80"
+                                MaxWidth="80"
+                                Binding="{Binding Path=AreaAccess, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Start Date"
+                                Width="100"
+                                MinWidth="100"
+                                MaxWidth="100"
+                                Binding="{Binding Path=StartDate, Mode=OneWay, StringFormat='dd MMM yyyy'}"/>
+                        <DataGridTextColumn Header="Expiry Date"
+                                Width="100"
+                                MinWidth="100"
+                                MaxWidth="100"
+                                Binding="{Binding Path=EndDate, Mode=OneWay, StringFormat='dd MMM yyyy'}"
+                                SortDirection="Descending"/>
+                        <DataGridTextColumn Header="Blue Pass"
+                                MinWidth="150"
+                                Binding="{Binding Path=ClearanceDetails, Mode=OneWay, FallbackValue='NA'}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow"
+                                BasedOn="{StaticResource {x:Type DataGridRow}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsClearanceValid}"
+                                        Value="True">
+                                    <Setter Property="Background"
+                                            Value="#2ecc71"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                </DataGrid>
+
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        IsTabStop="False"
+                        Content="DELETE CLEARANCE"
+                        x:Name="DeleteClearanceButton"
+                        Style="{StaticResource OrangeButton}"
+                        Width="150"
+                        HorizontalAlignment="Right"
+                        Click="DeleteSelectedClearance"
+                        IsEnabled="{Binding Path=SelectedItem, ElementName=VisitorClearanceDataGrid, Converter={StaticResource Null2BooleanFalseConvertor}}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="0"
+                Grid.Column="1"
+                Header="AD-HOC Clearance"
+                Foreground="White"
+                FontSize="13"
+                BorderBrush="DeepSkyBlue"
+                Margin="5,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,3,0,0"
+                        FontSize="13"
+                        Text="Area Access:"/>
+                <TextBlock Grid.Row="2"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,3,0,0"
+                        FontSize="13"
+                        Text="Start Date:"/>
+                <TextBlock Grid.Row="4"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,3,0,0"
+                        FontSize="13"
+                        Text="Expiry Date:"/>
+                <TextBlock Grid.Row="6"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="0,3,0,0"
+                        FontSize="13"
+                        Text="Blue Pass Details:"/>
+
+                <ComboBox x:Name="AdHocAreaAccessEntry"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="5"
+                        FontSize="12"
+                        Foreground="White"
+                        BorderThickness="3"
+                        TabIndex="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        PreviewKeyDown="AdHocAreaAccessEntry_PreviewKeyDown"
+                        ItemsSource="{Binding ClearanceLevelEnumValues}"/>
+
+                <DatePicker x:Name="AdHocStartDateEntry"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        TabIndex="1" SelectedDateFormat="Short"/>
+                <DatePicker x:Name="AdHocEndDateEntry"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Margin="2"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        TabIndex="2" SelectedDateFormat="Short"/>
+
+                <TextBox x:Name="AdHocDetailsEntry"
+                        Grid.Row="7"
+                        Grid.Column="0"
+                        Margin="2"
+                        VerticalContentAlignment="Top"
+                        CharacterCasing="Upper"
+                        TextWrapping="Wrap"
+                        TabIndex="3"/>
+
+                <Button Grid.Row="8"
+                        Grid.Column="0"
+                        FontSize="12"
+                        TabIndex="4"
+                        FontFamily="Calibri light"
+                        Margin="5,3"
+                        Content="ADD AD-HOC CLEARANCE"
+                        Click="AddAdHocClearance"
+                        IsEnabled="{Binding Converter={StaticResource Null2BooleanFalseConvertor}}"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

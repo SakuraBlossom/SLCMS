@@ -1,0 +1,196 @@
+﻿<UserControl x:Class="SLCMS.View.UploadBulkClearance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Themes/Generic.xaml"/>
+    </UserControl.Resources>
+    <Grid>
+        <TabControl x:Name="BulkClearanceUploadTabControl"
+                    Margin="10,20,10,0"
+                    BorderThickness="0"
+                    TabStripPlacement="Top"
+                    Style="{StaticResource WizardTabControlStyle}">
+
+            <TabItem Style="{StaticResource WizardTabItemStyle}" IsEnabled="False" >
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Margin="0,0,5,0">
+                            <Path Data="M37.24749,26.223C36.273693,26.223 35.481998,26.863556 35.481998,27.6474 35.481998,28.433744 36.273693,29.073 37.24749,29.073L57.500103,29.073C58.4753,29.073 59.266994,28.433744 59.266994,27.6474 59.266994,26.863556 58.4753,26.223 57.500103,26.223z M22.067123,22.228001L20.107557,29.49395 19.171373,29.501749 17.620497,26.010784 18.837978,23.752874 16.296419,23.752874 17.568499,25.95738 16.207922,29.52655 15.00996,29.536951 13.381027,22.562717C7.3655553,23.229349,5.3590002,30.58,5.3590002,30.58L29.751997,30.58C29.085308,23.899981,22.067123,22.228001,22.067123,22.228001z M38.202145,17.392C37.225574,17.392 36.433994,18.0326 36.433994,18.8165 36.433994,19.6017 37.225574,20.240999 38.202145,20.240999L58.454147,20.240999C59.42942,20.240999 60.220997,19.6017 60.220997,18.8165 60.220997,18.0326 59.42942,17.392 58.454147,17.392z M17.388794,7.9650002C13.668797,7.9650002 10.652998,10.978045 10.652998,14.69819 10.652998,18.416956 13.668797,21.434 17.388794,21.434 21.105051,21.434 24.121998,18.416956 24.121998,14.69819 24.121998,10.978045 21.105051,7.9650002 17.388794,7.9650002z M0,0L64,0 64,39.734001 0,39.734001z"
+                                    Stretch="Uniform"
+                                    Width="16" Height="16"
+                                    Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
+                            </Path>
+                        </Viewbox>
+                        <TextBlock Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" FontSize="14">SELECT EXCEL SHEET</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid Drop="Grid_DropFile" AllowDrop="true" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock FontSize="30" HorizontalAlignment="Center" Margin="10,0" Text="Drag and Drop Blue-Pass Clearance Excel Sheet"/>
+                        <TextBlock FontSize="20" HorizontalAlignment="Center" Margin="10,10" Text="OR"/>
+
+                        <Button Width="180" FontSize="16" Height="35"
+                                Command="{Binding ProceedToParseClearancesScreenCommand}"
+                                Content="CHOOSE FILE"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Style="{StaticResource WizardTabItemStyle}" IsEnabled="False">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Margin="0,0,5,0">
+                            <Path Data="M37.24749,26.223C36.273693,26.223 35.481998,26.863556 35.481998,27.6474 35.481998,28.433744 36.273693,29.073 37.24749,29.073L57.500103,29.073C58.4753,29.073 59.266994,28.433744 59.266994,27.6474 59.266994,26.863556 58.4753,26.223 57.500103,26.223z M22.067123,22.228001L20.107557,29.49395 19.171373,29.501749 17.620497,26.010784 18.837978,23.752874 16.296419,23.752874 17.568499,25.95738 16.207922,29.52655 15.00996,29.536951 13.381027,22.562717C7.3655553,23.229349,5.3590002,30.58,5.3590002,30.58L29.751997,30.58C29.085308,23.899981,22.067123,22.228001,22.067123,22.228001z M38.202145,17.392C37.225574,17.392 36.433994,18.0326 36.433994,18.8165 36.433994,19.6017 37.225574,20.240999 38.202145,20.240999L58.454147,20.240999C59.42942,20.240999 60.220997,19.6017 60.220997,18.8165 60.220997,18.0326 59.42942,17.392 58.454147,17.392z M17.388794,7.9650002C13.668797,7.9650002 10.652998,10.978045 10.652998,14.69819 10.652998,18.416956 13.668797,21.434 17.388794,21.434 21.105051,21.434 24.121998,18.416956 24.121998,14.69819 24.121998,10.978045 21.105051,7.9650002 17.388794,7.9650002z M0,0L64,0 64,39.734001 0,39.734001z"
+                                  Stretch="Uniform"
+                                  Width="16" Height="16"
+                                  Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
+                            </Path>
+                        </Viewbox>
+                        <TextBlock Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" FontSize="14">PARSE CLEARANCES</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid ItemsSource="{Binding ListofBluePassBulkClearances, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionUnit="FullRow" AutoGenerateColumns="False" Margin="5" RowHeight="25" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="NRIC"        Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=TwoWay}" SortDirection="Ascending" Foreground="White"/>
+                            <DataGridComboBoxColumn x:Name="AreaDataGridComboBox"  Header="Area"    Width="75" CellStyle="{StaticResource SearchableDataGridCell}" EditingElementStyle="{StaticResource {x:Type ComboBox}}" SelectedItemBinding="{Binding Path=AreaAccess, Mode=TwoWay}"/>
+                            <DataGridTemplateColumn Header="Expiry Date" Width="110" CellStyle="{StaticResource SearchableDataGridCell}" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=EndDate, Mode=TwoWay, StringFormat=\{0:dd/MM/yyyy\}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker Foreground="White" SelectedDate="{Binding Path=EndDate, Mode=TwoWay}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Honorific"    Width="65"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Rank, Mode=TwoWay, FallbackValue='NA'}" Foreground="White"/>
+                            <DataGridTextColumn Header="Name"    Width="140" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=FullName, Mode=TwoWay, FallbackValue='NA'}" Foreground="White"/>
+                            <DataGridTextColumn Header="Company" Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Company, Mode=TwoWay, FallbackValue='NA'}" Foreground="White"/>
+                            <DataGridTextColumn Header="Remarks" Width="300" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=ClearanceDetails, Mode=TwoWay, FallbackValue='NA'}" Foreground="White"/>
+                            <DataGridTextColumn Header="Valid?"  Width="50"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=IsValid, Converter={StaticResource BooleanToYesNoConverter}}" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsValid, FallbackValue=True}" Value="False">
+                                        <Setter Property="Background"
+                                                Value="#e74c3c"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+
+                    <Button Grid.Row="2"
+                            HorizontalAlignment="Left"
+                            HorizontalContentAlignment="Stretch"
+                            Margin="10,0,10,5"
+                            Width="220"
+                            Click="OnClickToSelectionScreen">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Viewbox Margin="0,0,5,0"
+                                     Height="16" Width="16">
+                                <Path Data="M100.661972687318,0L147.487023041322,0 63.3680083013314,79.771056062702 285.305016205384,79.771056062702 285.305016205384,111.138052827839 63.3680083013314,111.138052827839 147.487023041322,190.909117586139 146.885170624329,191.501006013874 101.277153656556,191.501006013874 23.4035479284066,117.648421175007 0,95.4545582599676z"
+                                      Stretch="Uniform"
+                                      Width="8" Height="8"
+                                      Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                                </Path>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1"
+                                       HorizontalAlignment="Center"
+                                       Text="BACK TO SELECTION OF EXCEL SHEET"/>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Row="2"
+                            HorizontalAlignment="Right"
+                            Margin="10,0,10,5"
+                            Width="220"
+                            Style="{StaticResource OrangeButton}"
+                            Command="{Binding ProceedToCommitChangesScreenCommand}"
+                            Content="CONFIRM"/>
+                </Grid>
+            </TabItem>
+
+            <TabItem Style="{StaticResource WizardTabItemStyle}" IsEnabled="False">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Viewbox Margin="0,0,5,0">
+                            <Path Data="M9.4910002,33.103001L9.4910002,35.531002 40.387001,35.531002 40.387001,33.103001z M9.4910002,23.172001L9.4910002,25.598999 40.387001,25.598999 40.387001,23.172001z M9.4910002,13.241L9.4910002,15.669 40.387001,15.669 40.387001,13.241z M0,0L49.875999,0 49.875999,63.796902 45.821415,58.2383 41.628731,52.230499 37.570148,58.330799 33.498562,64 33.144367,64 28.949081,58.248798 24.756399,52.241001 20.697817,58.341202 16.634033,64 16.264233,64 12.076752,58.259201 7.8840885,52.251301 3.8254242,58.351601 0,63.677101z"
+                                  Stretch="Uniform"
+                                  Width="16" Height="16"
+                                  Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}">
+                            </Path>
+                        </Viewbox>
+                        <TextBlock Foreground="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TabItem}}" FontSize="14">REVIEW INFO</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+
+                <Grid>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock FontSize="25" HorizontalAlignment="Center">Click the 'Confirm' button to commit the changes</TextBlock>
+                        <TextBlock FontSize="18" Foreground="Red" HorizontalAlignment="Center">Note: This operation may take up to a minute.</TextBlock>
+
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="0,20,0,0">
+                            <TextBlock FontSize="14" Text="{Binding NumberofValidClearances, FallbackValue='0'}"/>
+                            <TextBlock FontSize="14" Text=" records will be committed to the database."/>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock FontSize="14" Foreground="Red" Text="{Binding NumberofInvalidClearances, FallbackValue='0'}"/>
+                            <TextBlock FontSize="14" Foreground="Red" Text=" invalid records will be skipped."/>
+                        </StackPanel>
+                    </StackPanel>
+                    <Button HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                            HorizontalContentAlignment="Stretch"
+                            Margin="15" Padding="15"
+                            MinWidth="170"
+                            Click="OnClickToParseClearances">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Viewbox Margin="0,0,5,2"
+                                     Height="16" Width="16">
+                                <Path Data="M100.661972687318,0L147.487023041322,0 63.3680083013314,79.771056062702 285.305016205384,79.771056062702 285.305016205384,111.138052827839 63.3680083013314,111.138052827839 147.487023041322,190.909117586139 146.885170624329,191.501006013874 101.277153656556,191.501006013874 23.4035479284066,117.648421175007 0,95.4545582599676z"
+                                      Stretch="Uniform"
+                                      Width="8" Height="8"
+                                      Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}">
+                                </Path>
+                            </Viewbox>
+                            <TextBlock Grid.Column="1"
+                                       HorizontalAlignment="Center"
+                                       Text="BACK TO PARSE CLEARANCES"/>
+                        </Grid>
+                    </Button>
+                    <Button HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                            Margin="15" Padding="15"
+                            MinWidth="170"
+                            Style="{StaticResource OrangeButton}"
+                            Command="{Binding CommitChangesCommand}"
+                            Content="COMMIT CHANGES"/>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</UserControl>
