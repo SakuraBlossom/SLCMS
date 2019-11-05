@@ -35,22 +35,22 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Search Interface -->
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="DISPLAYING: " FontSize="15" FontWeight="Bold" VerticalAlignment="Center"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="DISPLAYING: " FontSize="15" FontWeight="Bold" VerticalAlignment="Bottom" Margin="3,0,4,8"/>
                 <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding NameofPersonnel}" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" Foreground="#BDDDF4" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow"/>
 
                 <!-- Data Grid -->
                 <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="4"
                     x:Name="VisitorRecordsDataGrid" IsReadOnly="True" SelectionUnit="FullRow" AutoGenerateColumns="False" SelectionMode="Single"
                     LoadingRow="VisitorRecordsDataGrid_LoadingRow"
-                    controls:DataGridTextSearch.SearchValue="{Binding PersonnelNric}"
+                    controls:DataGridTextSearch.SearchValue="{Binding PersonnelNric4D}"
                     ItemsSource="{Binding ListofVisitorRecords}" SelectedItem="{Binding CurrentSelectedRecord}"
                         KeyboardNavigation.TabNavigation="None" IsTabStop="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Pass Issued"   Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=PersonnelPass, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="Visitor NRIC"  Width="90"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Visitor NRIC"  Width="90"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC4D, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Veh. Pass"     Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehiclePass, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Veh. Num"      Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehicleNum, Mode=OneWay, FallbackValue='NA'}" />
-                        <DataGridTextColumn Header="Escort NRIC"   Width="90"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Escort NRIC"   Width="90"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC4D, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Locker Tag"    Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=LockerNum, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Date/Time In"  Width="135" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=StartTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}" SortDirection="Descending"/>
                         <DataGridTextColumn Header="Date/Time Out" Width="135" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EndTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}"/>

@@ -60,7 +60,7 @@
                 <DataGridTextColumn Header="Book In Time"    MinWidth="120" MaxWidth="120" Binding="{Binding Path=StartTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}"/>
                 <DataGridTextColumn Header="Book Out Time"   MinWidth="120" MaxWidth="120" Binding="{Binding Path=EndTime, Mode=OneWay, StringFormat=\{0:dd/MM/yy HH:mm:ss\}}"  SortDirection="Descending"/>
                 <DataGridTextColumn Header="Pass No."        Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=PersonnelPass, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Visitor NRIC"    Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Visitor NRIC"    Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC4D, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Name of Visitor" Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Visitor.RankAndName, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Escort NRIC"     Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC, Mode=OneWay, FallbackValue='NA'}" />
                 <DataGridTextColumn Header="Name of Escort"  Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Escort.RankAndName, Mode=OneWay, FallbackValue='NA'}" />

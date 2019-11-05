@@ -6,7 +6,8 @@ namespace SLCMS.Model
     {
         public string NRIC => Visitor?.NRIC ?? "NA";
         public string EscortNRIC => Escort?.NRIC ?? "NA";
-
+        public string NRIC4D => Visitor?.NRIC4D ?? "NA";
+        public string EscortNRIC4D => Escort?.NRIC4D ?? "NA";
 
         public PersonnelDetails Visitor { get; set; }
         public PersonnelDetails Escort { get; set; }

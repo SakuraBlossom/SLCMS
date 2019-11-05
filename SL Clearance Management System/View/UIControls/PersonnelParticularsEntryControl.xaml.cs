@@ -63,5 +63,10 @@ namespace SLCMS.View.UIControls
                     details.RankAndName);
             }
         }
+
+        private void VisitorNricTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }
