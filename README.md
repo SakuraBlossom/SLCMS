@@ -1,5 +1,5 @@
 # SLCMS
-Clearance Management System for 607SQN
+Clearance Management System 
 
 ## System Requirements
 - 64-bit OLE Object and Office Installation (MUST BE 64-bit)
