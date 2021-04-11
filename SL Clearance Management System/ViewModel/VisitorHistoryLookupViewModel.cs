@@ -42,6 +42,10 @@ namespace SLCMS.ViewModel {
                 RaisePropertyChangedEvent(nameof(PersonnelNric));
             }
         }
+        public string PersonnelNric4D
+        {
+            get => _personnelNric?.Substring(5, 4) ?? "NA";
+        }
         public string NameofPersonnel {
             get => _nameofPersonnel;
             set {
@@ -69,7 +73,7 @@ namespace SLCMS.ViewModel {
             }
         }
 
-        public bool NoRecordsFound => _listofVisitorRecords.Count == 0;
+        public bool NoRecordsFound => (_listofVisitorRecords?.Count == 0);
 
         public ICommand LookupVisitorCommand {
             get => _lookupVisitorCommand;
@@ -122,7 +126,7 @@ namespace SLCMS.ViewModel {
                 return;
 
             PersonnelNric = visitornric;
-            NameofPersonnel = visitornric + " " + rankandFullName;
+            NameofPersonnel = visitornric.Substring(5,4) + " " + rankandFullName;
             ControlVisibility = Visibility.Visible;
             LookupVisitorHistoryhelper(visitornric);
             _closeDialogueButton.Focus();

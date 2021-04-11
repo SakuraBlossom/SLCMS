@@ -43,6 +43,10 @@ namespace SLCMS.Model
                 RaisePropertyChangedEvent(nameof(NRIC));
             }
         }
+        public string NRIC4D
+        {
+            get => _nric.Substring(5, 4);
+        }
         public string Rank
         {
             get => _rank;

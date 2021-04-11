@@ -306,10 +306,10 @@
                     controls:DataGridTextSearch.SearchValue="{Binding ElementName=SearchTextBox, Path=Text, UpdateSourceTrigger=PropertyChanged}"
                     LoadingRow="VisitorInCampDataGrid_LoadingRow" SelectionChanged="VisitorInCampDataGrid_SelectionChanged" RowHeight="30">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Visitor NRIC"    Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Visitor NRIC"    Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC4D, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Veh. Num"        Width="100"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehicleNum, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Name of Visitor" Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Visitor.RankAndName, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Escort NRIC"     Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC, Mode=OneWay, FallbackValue='NA'}" />
+                <DataGridTextColumn Header="Escort NRIC"     Width="100" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=EscortNRIC4D, Mode=OneWay, FallbackValue='NA'}" />
                 <DataGridTextColumn Header="Name of Escort"  Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Escort.RankAndName, Mode=OneWay, FallbackValue='NA'}" />
                 <DataGridTextColumn Header="Visitor Contact No." Width="120" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Visitor.Contact, Mode=OneWay, FallbackValue='NA'}" />
             </DataGrid.Columns>

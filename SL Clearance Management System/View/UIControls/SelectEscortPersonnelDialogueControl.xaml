@@ -46,7 +46,7 @@
                     SelectedItem="{Binding Path=DataContext, ElementName=ThisControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" LoadingRow="VisitorInCampDataGrid_LoadingRow"
                     KeyboardNavigation.TabNavigation="None">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="NRIC"           Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC, Mode=OneWay}"  SortDirection="Ascending"/>
+                        <DataGridTextColumn Header="NRIC"           Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=NRIC4D, Mode=OneWay}"  SortDirection="Ascending"/>
                         <DataGridTextColumn Header="Name of Escort" Width="180" CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=RankAndName, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Contact No."    Width="130"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=Contact, Mode=OneWay, FallbackValue='NA'}" />
                         <DataGridTextColumn Header="Veh. Num"       Width="80"  CellStyle="{StaticResource SearchableDataGridCell}" Binding="{Binding Path=VehicleNum, Mode=OneWay}"/>

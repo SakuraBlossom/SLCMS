@@ -92,7 +92,7 @@
         <TextBlock Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="13" Text="Vehicle:"/>
         <TextBlock Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top"    Margin="0,3,0,0" FontSize="13" Text="Remarks:"/>
 
-        <TextBox x:Name="VisitorNricTextBox" Grid.Row="0" Grid.Column="1" Margin="2" FontSize="12" Foreground="White" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Path=NRIC, FallbackValue='NA'}" IsReadOnly="True" IsTabStop="False">
+        <TextBox x:Name="VisitorNricTextBox" Grid.Row="0" Grid.Column="1" Margin="2" FontSize="12" Foreground="White" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Text="{Binding Path=NRIC4D, FallbackValue='NA', Mode=OneWay}" IsReadOnly="True" IsTabStop="False" TextChanged="VisitorNricTextBox_TextChanged">
             <TextBox.Style>
                 <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource {x:Type TextBox}}">
                     <Style.Triggers>

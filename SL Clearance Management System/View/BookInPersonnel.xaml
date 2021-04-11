@@ -319,7 +319,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Visitor NRIC"
                                 Width="90"
-                                Binding="{Binding Path=NRIC, Mode=OneWay}"/>
+                                Binding="{Binding Path=NRIC4D, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Name of Visitor"
                                 Width="150"
                                 Binding="{Binding Path=Visitor.RankAndName, Mode=OneWay}"/>

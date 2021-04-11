@@ -92,7 +92,7 @@ namespace SLCMS.BusinessLogic {
                 Environment.Exit(1);
             }
 
-            _connectionString = $"Provider=\'{OleDbProvider}\';Data Source=\'{DataBaseLocation}\'";
+            _connectionString = $"Provider=\'{OleDbProvider}\';Data Source=\'{DataBaseLocation}\';";
             if(RunConnectionTest())
                 return;
 
